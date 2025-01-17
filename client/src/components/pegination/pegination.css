@@ -1,0 +1,30 @@
+/* pegination */
+.pagination {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem 0;
+    font-size: 1rem;
+  }
+  
+  .pagination .page-num {
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+    font-weight: normal;
+    color: #000;
+    border: 1px solid #333;
+    margin: 2px;
+  }
+  
+  .pagination .page-num:hover {
+    color: #3d07ff;
+    background-color: rgb(85, 255, 0);
+  }
+  .activePage {
+    color: #fff;
+    background-color: rgb(255, 183, 0);
+    height: 100%;
+  }
+  
