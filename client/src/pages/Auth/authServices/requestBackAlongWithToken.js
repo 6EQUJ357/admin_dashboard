@@ -2,11 +2,13 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 
+
 import { BACKEND_URL } from "../../../config/config";
 
 
 //dashboard
 export const VerifyPages = async () => {
+
 
   const token = localStorage.getItem("webtoken");
   //console.log("token", token);
@@ -19,6 +21,7 @@ export const VerifyPages = async () => {
   
         if(response.data.status === 400){
           toast.error(response.data.message);
+          window.location.href = '/';
           // alert(response.data.message);
           }
   

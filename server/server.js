@@ -67,7 +67,7 @@ app.get("/", (req,res)=>{
 })
 
 
-
+ 
 //all protect Routes
 app.use("/api/protect", allProtectRouter);
 

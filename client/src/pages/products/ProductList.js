@@ -49,7 +49,7 @@ const ProductList = () => {
                         //get company data
                         const productDetails = await getProductData();
                         await setItems(productDetails.productData);
-                       //console.log("date received", companyDetails.companyData);
+                       //console.log("date received", productDetails.productData);
                        
                     
                 }

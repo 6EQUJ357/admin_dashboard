@@ -9,7 +9,7 @@ const {
 } = require("../controllers/adminController");
 const { upload } = require("../utils/fileUploads");
 
-
+ 
 
 router.post("/register", upload.single("adminImg"), registerAdmin);
 router.post("/login", loginAdmin);
