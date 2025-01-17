@@ -2,7 +2,8 @@
     "builds": [
       {
         "src": "client", 
-        "use": "@vercel/static" 
+        "use": "@vercel/static",
+        "outputDirectory": "build"  
       },
       {
         "src": "server/server.js",
