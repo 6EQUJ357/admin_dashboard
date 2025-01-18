@@ -9,13 +9,13 @@ const bcrypt = require("bcryptjs");
 
 // Register customer
 const registerCustomer = asyncHandler(async (req, res) => {
-    const { customerName, customerEmail, customerMobile_NO, customerPassword, customerConfirmPassword} = req.body;
+    const { customerName, customerMobile_NO, customerPassword} = req.body;
    // console.log("back data",  req.body);   
   
 
 
     //all fields validation
-    if (!customerName || !customerMobile_NO || !customerPassword || !customerConfirmPassword) {
+    if (!customerName || !customerMobile_NO || !customerPassword) {
       return res.json({status : 400, message:"Please Fill the Fields..."});
       
     }
@@ -26,24 +26,6 @@ const registerCustomer = asyncHandler(async (req, res) => {
       return res.json({status : 400, message:"Password must be up to 6 characters..."});
       
     }
-
-
-    //Compare password and confirm password
-    if (customerPassword != customerConfirmPassword) {
-      return res.json({status : 400, message:"Passwords did not match"});
-      }
-
-
-    //  // email validation regular expression
-    //  const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-
-
-
-    //  // Validate email
-    //  if (!customerEmail || !emailRegex.test(customerEmail)) {
-    //   return res.json({status : 400, message:"Invalid email"});
-        
-    //  }
 
 
          // Validate mobile no.
@@ -65,41 +47,21 @@ const registerCustomer = asyncHandler(async (req, res) => {
     // Create new customer
     const savecustomer = await customer.create({
         customerName,
-        customerEmail,
         customerMobile_NO,
         customerPassword  
     });
   
-
-    // // Generate Token
-    // const generateToken = (id) => {
-    //     return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "1d" });
-    // };
-
-    // //   Generate Token
-    // const token = generateToken(savecustomer._id);
-  
-    // // Send HTTP-only cookie
-    // res.cookie("token", token, {
-    //   path: "/",
-    //   httpOnly: true,
-    //   expires: new Date(Date.now() + 1000 * 86400), // 1 day
-    //   sameSite: "none",
-    //   secure: true,
-    // });
   
     if (savecustomer) {
         const sanitizedcustomer = savecustomer.toObject(); // Create a copy of the object
         delete sanitizedcustomer.customerPassword; // Remove password from the copy
 
-        return res.json({status : 200, message:"register successfull...", customerData : sanitizedcustomer});
+        return res.json({status : 200, message:"register successfull please login...", customerData : sanitizedcustomer});
 
     } else {
       return res.json({status : 400, message:"Invalid customer data"});
     }
   });
-
-
 
 
 
@@ -115,30 +77,22 @@ const loginCustomer = asyncHandler(async (req, res) => {
   }
 
 
-//    // email validation regular expression
-//    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-
-//    // Validate email
-//    if (!customerEmail || !emailRegex.test(customerEmail)) {
-//        return res.json({status : 400, message: 'Invalid email' });
-//    }
-
 
   // Check if customer exists
-  const customer = await customer.findOne({ customerMobile_NO });
+  const customerExist = await customer.findOne({ customerMobile_NO });
 
-  if (!customer) {
+  if (!customerExist) {
     return res.json({status : 400, message : "customer Not Found..."});
   }
 
   // customer exists, check if password is correct
-  const passwordMatch = await bcrypt.compare(customerPassword, customer.customerPassword);
+  const passwordMatch = await bcrypt.compare(customerPassword, customerExist.customerPassword);
   //console.log("first", passwordMatch)
   if(!passwordMatch){
     return res.json({status : 400, message: 'Invalid Password Credential' });
   }
   
-
+   
 
    // Generate Token
     const generateToken = (id) => {
@@ -146,7 +100,7 @@ const loginCustomer = asyncHandler(async (req, res) => {
     };
 
     //   Generate Token
-    const token = generateToken(customer._id);
+    const token = generateToken(customerExist._id);
     if(!token) {
       console.log(err);
       return res.json({status : 400, message :"Error while generating token"})
@@ -159,12 +113,12 @@ const loginCustomer = asyncHandler(async (req, res) => {
 //     path: "/",
 //     httpOnly: true,
 //     expires: new Date(Date.now() + 1000 * 86400), // 1 day
-//     sameSite: "none",
+//     sameSite: "none", 
 //     secure: true,
 //   });
 // }
-  if (customer && passwordMatch) {
-    const sanitizedcustomer = customer.toObject(); // Create a copy of the object
+  if (customerExist && passwordMatch) {
+    const sanitizedcustomer = customerExist.toObject(); // Create a copy of the object
     delete sanitizedcustomer.customerPassword; // Remove password from the copy
 
     res.json({status : 200, customerData : sanitizedcustomer, token : token, message:"login successfully.."});

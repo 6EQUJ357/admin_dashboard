@@ -102,7 +102,7 @@ export const loginAdmin = async (values) => {
       if(response.data.status === 200){
         localStorage.clear();
         toast.success(response.data.message);
-       // console.log("tott", response.data);     
+       // console.log("tott", response.data);      
   
         }
 

@@ -26,7 +26,7 @@ let companyProfileSchema = mongoose.Schema({
     required: [true, "Please add a address"],
     },
     companyLogo : {
-        type: String,
+        type: String, 
         required: [true, "Please add a photo"],
         default: "../assets/default_images/demo_admin_img.jpg"
     },

@@ -4,19 +4,17 @@ const bcrypt = require("bcryptjs");
 let customerSchema = new mongoose.Schema({
     customerName : {
         type: String,
-        required:true,
-    },
-    customerEmail : {
-        type:String ,
-        unique : true
+        required: [true, "Please add a name"]
     },
     customerMobile_NO :{
         type:String ,
-        required: true
+        unique : true,
+        required: [true, "Please add a Mobile No"],
     },
     customerPassword : {
         type:String ,
-        required: true
+        required: [true, "Please add a password"],
+        minLength: [6, "Password must be up to 6 characters"]
     },
     date : {
         type: Date, 

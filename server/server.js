@@ -41,13 +41,13 @@ const PORT = process.env.PORT || 9000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 // app.use(cors({origin : "*"})) 
-app.use(
+app.use( 
   cors({
-    origin: ["http://localhost:3000"],
+    origin: ["http://localhost:3000", "http://localhost:3001"],
     credentials: true,
   })
 );  
-
+   
 
 //multer Admin images
 app.use("/assets/upload_images", express.static(path.join(__dirname, "assets/upload_images")));

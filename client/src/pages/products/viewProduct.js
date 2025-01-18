@@ -38,7 +38,7 @@ const ViewProduct = () => {
 
     const [images, setImages] = useState(viewProductProfile.productImg) 
     const [currentImage, setCurrentImage] = useState(images[0])
-    console.log("img", images)
+    //console.log("img", images)
 
 
    useEffect(() => {

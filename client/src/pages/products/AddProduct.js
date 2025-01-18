@@ -254,11 +254,12 @@ const AddProduct = () => {
                                         <div className="mb-3 down_arrow_style_parent">
                                                 <label className="form-label" for="product type">Category</label>  {/* Product Type */}
 
-                                                     <input list="vendorname"  id="product type" name="productCategory" className="form-control" onChange={formik.handleChange} />
+                                                     <input list="vendorname"  id="product type" name="productCategory" className="form-control" onChange={formik.handleChange} placeholder=' --- Select Category ---'/>
                                                      <span className=""><i className="las la-angle-down fs-20 ms-1 down_arrow_style"></i></span>
 
                                                         <datalist id="vendorname" >
-                                                        {Category.map((list)=>
+                                                        
+                                                        {Category.length >0 && Category.map((list)=>
                                                         
                                                         <option key={list._id} value={list.productCategory}>{list.productCategory}</option>)}
                                                         </datalist> 
@@ -284,12 +285,12 @@ const AddProduct = () => {
                                                
 
                                                       
-                                                        <input list="proweight"  id="product type" name="productWeight" className="form-control" onChange={formik.handleChange} />
+                                                        <input list="proweight"  id="product type" name="productWeight" className="form-control" onChange={formik.handleChange} placeholder=' --- Select Weight ---'/>
                                                         <span ><i className="las la-angle-down fs-20 ms-1 down_arrow_style"></i></span>
 
 
                                                         <datalist id="proweight" >
-                                                        {Weight.map((list)=>
+                                                        {Weight.length >0 && Weight.map((list)=>
                                                         <option key={list._id} value={list.productWeight}>{list.productWeight}</option>)}
                                                         </datalist> 
 
